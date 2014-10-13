@@ -53,6 +53,19 @@ class Grid{
     std::map<int,Case*> cases;
 };
 
+class Actor{
+    
+};
+
+class Wall{
+    public :
+    Wall(int a1, int a2, int b1, int b2);
+    void destroyWall();
+    
+    private :
+    std::vector<Case*> cases;
+};
+
 class Policeman{
     
 };

@@ -94,6 +94,8 @@ Case* Grid::getCase(int x, int y){
     return cases[x*width+y];
 }
 
+
+
 /*Kill::Kill(int x, int y){
     
 }*/
