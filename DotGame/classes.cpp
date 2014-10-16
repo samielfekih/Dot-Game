@@ -18,6 +18,7 @@ Case::Case(int x, int y){
     action = 0;
     white = 0;
     animation = 0;
+    prisoner = false;
 }
 
 int Case::getX(){
@@ -70,6 +71,18 @@ int Case::getAnimation(){
     return animation;
 }
 
+bool Case::isPrisoner(){
+    return prisoner;
+}
+
+void Case::prisonerIn(){
+    prisoner = true;
+}
+
+void Case::prisonerOut(){
+    prisoner = false;
+}
+
 Grid::Grid(){
     width = 0;
     height = 0;
@@ -92,6 +105,72 @@ Grid::Grid(int i, int j){
 
 Case* Grid::getCase(int x, int y){
     return cases[x*width+y];
+}
+
+Action::Action(){
+    
+}
+
+Wall::Wall(int a, int b , int c, int d){
+    vector<Case*> cases;
+    //wallNumber ++;
+    Case * ptr(0);
+    if (a == b){
+        for (int i= c; i<= d; i++){
+            *ptr = Case(a,i);
+            cases.push_back(ptr);
+            //ptr->setWall(wallNumber);
+        }
+    }
+    else if (c==d){
+        for (int i= a; i<= b; i++){
+            *ptr = Case(i,c);
+            cases.push_back(ptr);
+            //ptr->setWall(wallNumber);
+        }
+    }
+}
+
+void Wall::destroyWall(){
+    for (Case* ptr :cases){
+        ptr->setWall(0);
+    }
+}
+
+
+DestroyWall::DestroyWall(Wall* w){
+    wall = w;
+}
+
+void DestroyWall::execute(Button* b){
+    if (b->getCase()->isPrisoner())
+        wall->destroyWall();
+}
+
+Button::Button(){
+    
+}
+
+Button::Button(Case* c, Action a){
+    square = c;
+    action = a;
+}
+Case* Button::getCase(){
+    return square;
+}
+
+WallButton :: WallButton(Case* c, Wall* w){
+    DestroyWall a = DestroyWall(w);
+    Button (c,a);
+}
+
+WallButton::WallButton(Grid* g, int x, int y, Wall*w){
+    WallButton (g->getCase(x,y),w);
+}
+
+WallButton::WallButton(Grid* g, int x, int y, int a, int b, int c, int d){
+    Wall wall = Wall(a,b,c,d);
+    WallButton(g,x,y,&wall);
 }
 
 

@@ -31,6 +31,9 @@ class Case{
     void setAnimation(int a);
     void stopAnimation();
     int getAnimation();
+    bool isPrisoner();
+    void prisonerIn();
+    void prisonerOut();
     
     private :
     int positionX;
@@ -39,6 +42,7 @@ class Case{
     int action;
     int white;
     int animation;
+    bool prisoner;
 };
 
 class Grid{
@@ -61,14 +65,17 @@ class Wall{
     public :
     Wall(int a1, int a2, int b1, int b2);
     void destroyWall();
+   // static int wallNumber;
     
     private :
     std::vector<Case*> cases;
+    int number;
 };
 
 class Policeman{
     
 };
+
 
 class Action {
     
@@ -86,25 +93,41 @@ private:
     
 };
 
-class Follow : Action{
+class Button{
+public:
+    Button();
+    Button(Case* c, Action a);
+    void execute();
+    Case* getCase();
     
-};
-
-class DestroyWall : Action{
-    
-};
-
-class Patrol : Action {
-    
-};
-
-class FindTarget : Action{
-    
+private:
+    Case* square;
+    Action action;
 };
 
 
-class Move : Action {
+class DestroyWall : public Action{
+    public :
+    DestroyWall (Wall * wall);
+    void execute(Button* b);
     
+    private :
+    Wall* wall ;
+};
+
+
+
+
+
+
+class WallButton : public Button {
+public:
+    WallButton(Case* c, Wall *w);
+    WallButton(Grid* g, int x, int y, Wall* w);
+    WallButton(Grid* g, int x, int y, int a, int b, int c, int d);
+    
+    private:
+    Wall* wall;
 };
 
 

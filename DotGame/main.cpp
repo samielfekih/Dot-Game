@@ -150,6 +150,7 @@ void setPolice(int nbp, int px[], int py[], bool horizontal){
 }
 
 void level1(){
+    
     x0 = 9; y0=15;
     grid = Grid(NOMBRE_COLONNES,NOMBRE_LIGNES);
 //    grid.getCase(0,0)->getWall();
@@ -434,7 +435,7 @@ bool police(int x, int y, int x1, int y1){
 
 int main()
 {
-    
+   // Wall::wallNumber=1;
 	// crÈation de la fenÍtre
 	sf::RenderWindow window(sf::VideoMode(LARGEUR_ECRAN, LONGUEUR_ECRAN), "My window");
     int timer = 0;
